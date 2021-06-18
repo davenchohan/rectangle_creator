@@ -26,6 +26,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,10 +52,37 @@ public class Main {
   }
 
   @RequestMapping("/")
-  String index() {
+  String index(Map<String, Object> model) {
+    String name = "Bobby";
+    model.put("name", name);
     return "index";
   }
-  
+
+  @GetMapping(
+    path = "/rectangle"
+  )
+  public String getRectangleForm(Map<String, Object> model){
+    Rectangle rectangle = new Rectangle();  // creates new rectangle object with empty fname and lname
+    model.put("rectangle", rectangle);
+    return "rectangle";
+  }
+
+  @PostMapping(
+    path = "/rectangle",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+
+  public String handleBrowserRectangleSubmit(Rectangle rectangle) throws Exception {
+    // Save the rectangle data into the database
+    System.out.println(rectangle.getName() + " " + rectangle.getColour() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
+    return "redirect:/rectangle/success";
+  }
+
+  @GetMapping("/rectangle/success")
+  public String getRectangleSucess(){
+    return "success";
+  }
+
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
