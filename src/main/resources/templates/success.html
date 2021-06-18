@@ -4,9 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/homepagestyle.css">
     <title>Document</title>
 </head>
 <body>
-    Rectangle Added Successfully!
+    <h1>Rectangles</h1>
+    <div class="container">
+        <table id="rectable"> 
+            <tr>
+              <th>ID</th> <th>Name</th> <th>Color</th>
+            </tr>
+            <tr th:each="record : ${records}">
+                <td th:text="${record.getId()}"> </td> <td><a th:text="${record.getName()}" th:href="@{/rectangle/read/{id}(id=${record.getId()})}"> </a> </td> <td id=getColor th:text="${record.getColour()}"></td>
+            </tr>
+            </table>
+    </div>
+    <a th:href="@{/rectangle}">ADD A RECTANGLE</a>
+    <a th:href="@{/rectangle/deleteall}">DELETE ALL RECTANGLES</a>
 </body>
 </html>

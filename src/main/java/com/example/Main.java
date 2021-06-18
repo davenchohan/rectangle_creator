@@ -72,17 +72,110 @@ public class Main {
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
 
-  public String handleBrowserRectangleSubmit(Rectangle rectangle) throws Exception {
+  public String handleBrowserRectangleSubmit(Map<String, Object> model, Rectangle rectangle) throws Exception {
     // Save the rectangle data into the database
-    System.out.println(rectangle.getName() + " " + rectangle.getColour() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
-    return "redirect:/rectangle/success";
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS rectangle (id serial, name varchar(20), color varchar(20), width integer, height integer)");
+      String sql = "INSERT INTO rectangle (name,color,width,height) VALUES ('" + rectangle.getName() + "','" + rectangle.getColour() + "','" + rectangle.getWidth() + "','" + rectangle.getHeight() + "')";
+      stmt.executeUpdate(sql);
+
+      System.out.println(rectangle.getName() + " " + rectangle.getColour() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
+      return "redirect:/rectangle/home";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
   }
 
-  @GetMapping("/rectangle/success")
-  public String getRectangleSucess(){
-    return "success";
+  @GetMapping("/rectangle/home")
+  public String getRectangleSuccess(Map<String, Object> model){
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM rectangle");
+
+      ArrayList<Rectangle> output = new ArrayList<Rectangle>();
+      while (rs.next()) {
+        Rectangle rectangle = new Rectangle();
+        String name = rs.getString("name");
+        String id = rs.getString("id");
+        int width = rs.getInt("width");
+        int height = rs.getInt("height");
+        String colour = rs.getString("color");
+        rectangle.setName(name);
+        rectangle.setColour(colour);
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
+        rectangle.setId(id);
+        
+        output.add(rectangle);
+      }
+
+      model.put("records", output);
+      return "success";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
   }
 
+  @GetMapping("/rectangle/read/{pid}")
+  public String getRectangleInfo(Map<String, Object> model, @PathVariable String pid) {
+    System.out.println(pid);
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM rectangle WHERE id="+ pid);
+
+      ArrayList<Rectangle> output = new ArrayList<Rectangle>();
+      while (rs.next()) {
+        Rectangle rectangle = new Rectangle();
+        String name = rs.getString("name");
+        String id = rs.getString("id");
+        int width = rs.getInt("width");
+        int height = rs.getInt("height");
+        String colour = rs.getString("color");
+        rectangle.setName(name);
+        rectangle.setColour(colour);
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
+        rectangle.setId(id);
+        
+        output.add(rectangle);
+      }
+
+      model.put("records", output);
+      return "rectangleinfo";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping("/rectangle/delete/{pid}")
+    public String deleteRectangle(Map<String, Object> model, @PathVariable String pid){
+      System.out.println(pid);
+      try (Connection connection = dataSource.getConnection()) {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM rectangle WHERE id="+ pid);
+      } catch (Exception e) {
+        model.put("message", e.getMessage());
+        return "error";
+      }
+      return "redirect:/rectangle/home";
+  }
+
+  @GetMapping("/rectangle/deleteall")
+  public String deleteRectangle(Map<String, Object> model){
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("DROP TABLE rectangle");
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    return "redirect:/rectangle";
+}
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {

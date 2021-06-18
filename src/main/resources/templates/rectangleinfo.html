@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/sstyle.css">
+    <title>Document</title>
+</head>
+<body>
+    Reading rectangle
+    <div class="container">
+         <table id="rectable"> 
+            <tr th:each="record : ${records}">
+                <th>ID</th>
+                <td th:text="${record.getId()}"></td>
+            </tr>
+            <tr th:each="record : ${records}">
+                <th>Name</th>
+                <td th:text="${record.getName()}"></td>
+            </tr>
+            <tr th:each="record : ${records}">
+                <th>Colour</th>
+                <td th:text="${record.getColour()}"></td>
+            </tr>
+            <tr th:each="record : ${records}">
+                <th>Width</th>
+                <td th:text="${record.getWidth()}"></td>
+            </tr>
+            <tr th:each="record : ${records}">
+                <th>Height</th>
+                <td th:text="${record.getHeight()}"></td>
+            </tr>
+        </table>
+        <div th:each="record : ${records}">
+            <a th:href="@{/rectangle/delete/{id}(id=${record.getId()})}">DELETE THIS RECTANGLE</a>
+        </div>
+    </div>
+</body>
+</html>

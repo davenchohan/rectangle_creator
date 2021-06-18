@@ -5,6 +5,7 @@ public class Rectangle {
     private String colour;
     private int width;
     private int height;
+    private String id;
 
     public String getName() {
         return this.name;
@@ -22,6 +23,10 @@ public class Rectangle {
         return this.height;
     }
 
+    public String getId(){
+        return this.id;
+    }
+
     public void setName(String n) {
         this.name = n;
     }
@@ -36,5 +41,9 @@ public class Rectangle {
 
     public void setHeight(int h) {
         this.height = h;
+    }
+
+    public void setId(String i){
+        this.id = i;
     }
 }
