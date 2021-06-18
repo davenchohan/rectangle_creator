@@ -1,0 +1,26 @@
+table, th, td {
+  border: 2px solid #cacccc;
+  border-collapse: collapse;
+  text-indent: 10px;
+}
+
+th{
+  background-color: #dddddd;
+  text-align: left;
+}
+
+td{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 14px;
+  width: 50%;
+}
+
+button{
+  color: white;
+  background-color: grey;
+  padding: 10px 25px;
+  font-size: 15px;
+  margin: 5px;
+  border-radius: 6px;
+}
