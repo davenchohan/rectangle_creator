@@ -1,0 +1,65 @@
+  #submit{
+    color: white;
+    background-color: limegreen;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    font-size: 15px;
+    margin-left: 38px;
+    margin-top: 20px;
+    border-radius: 6px;
+    display: block;
+  }
+  
+  #submit:hover{
+    background-color: white;
+    color: limegreen;
+    border-color: limegreen;
+  }
+  
+  #back{
+    color: white;
+    background-color: blue;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    font-size: 15px;
+    margin-left: 75px;
+    margin-top: 20px;
+    border-radius: 6px;
+    display: block;
+  }
+  
+  #back:hover{
+    background-color: white;
+    color: blue;
+    border-color: blue;
+  }
+  
+  #title{
+    margin-left: 70px;
+  }
+  
+  body{
+    margin-top: 55px;
+    margin-left: 200px;
+    background-color: white;
+  }
+
+  #name{
+      margin-bottom: 10px;
+  }
+
+  #colour{
+    margin-bottom: 10px;
+  }
+
+  #width{
+    margin-bottom: 10px;
+  }
+
+  #height{
+    margin-bottom: 10px;
+  }

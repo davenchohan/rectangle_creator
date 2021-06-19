@@ -175,7 +175,7 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
-    return "redirect:/rectangle";
+    return "redirect:/rectangle/home";
 }
 
   @RequestMapping("/db")

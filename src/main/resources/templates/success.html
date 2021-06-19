@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../stylesheets/homepagestyle.css">
-    <title>Document</title>
+    <title>Homepage</title>
 </head>
 <body>
     <h1>Rectangles</h1>
@@ -15,11 +15,17 @@
               <th>ID</th> <th>Name</th> <th>Color</th>
             </tr>
             <tr th:each="record : ${records}">
-                <td th:text="${record.getId()}"> </td> <td><a th:text="${record.getName()}" th:href="@{/rectangle/read/{id}(id=${record.getId()})}"> </a> </td> <td id=getColor th:text="${record.getColour()}"></td>
+                <td th:text="${record.getId()}"> </td> <td><a th:text="${record.getName()}" th:href="@{/rectangle/read/{id}(id=${record.getId()})}"> </a> </td> <td id=getColor th:style="|background-color:${record.getColour()};|"></td>
             </tr>
             </table>
     </div>
-    <a th:href="@{/rectangle}">ADD A RECTANGLE</a>
-    <a th:href="@{/rectangle/deleteall}">DELETE ALL RECTANGLES</a>
+    <div>
+        <form th:action="@{/rectangle}">
+            <button id=add type="submit">ADD A RECTANGLE</button>
+        </form>
+        <form th:action="@{/rectangle/deleteall}">
+            <button id=delete type="submit">DELETE ALL RECTANGLES</button>
+        </form>
+    </div>
 </body>
 </html>
