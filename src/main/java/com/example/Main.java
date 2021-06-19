@@ -55,7 +55,7 @@ public class Main {
   String index(Map<String, Object> model) {
     String name = "Bobby";
     model.put("name", name);
-    return "index";
+    return "redirect:/rectangle/home";
   }
 
   @GetMapping(
